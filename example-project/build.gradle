@@ -2,9 +2,6 @@ plugins {
 	id 'io.github.suppierk.jooq-java-class-generator'
 }
 
-group = 'io.github.suppierk'
-version = '1.0.0-SNAPSHOT'
-
 repositories {
 	mavenCentral()
 }

@@ -2,11 +2,13 @@ plugins {
 	id 'com.diffplug.spotless' version '6.25.0'
 }
 
-group = 'io.github.suppierk'
-version = '1.0.0-SNAPSHOT'
-
 repositories {
 	mavenCentral()
+}
+
+allprojects {
+	group = 'io.github.suppierk'
+	version = '0.0.1-SNAPSHOT'
 }
 
 subprojects {

@@ -1,15 +1,16 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-
 plugins {
 	id 'groovy'
 	id 'java-gradle-plugin'
 
+	// https://plugins.gradle.org/plugin/com.gradle.plugin-publish
 	id 'com.gradle.plugin-publish' version '1.3.0'
+
+	// https://plugins.gradle.org/plugin/org.nosphere.gradle.github.actions
 	id 'org.nosphere.gradle.github.actions' version '1.4.0'
 }
 
 group = 'io.github.suppierk'
-version = '1.0.0-SNAPSHOT'
+version = '1.0.0'
 
 def functionalTest = sourceSets.create('functionalTest')
 

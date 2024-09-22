@@ -4,7 +4,7 @@ jOOQ Java Class Generator
 > The work on this software project is in no way associated with my employer nor with the role I'm having at my
 > employer.
 >
-> I maintain this project alone and as much or as little as my **spare time** permits.
+> I maintain this project alone and as much or as little as my **spare time** permits using my **personal** equipment.
 
 # Overview
 
@@ -46,4 +46,5 @@ jooqDockerImages {
 
 > This configuration has been made to support jOOQ behavior when it comes to restricting code generation based on the
 > database version or other dependencies within your project restricting your
-> options, [see the following comment and GitHub issue](https://github.com/jOOQ/jOOQ/issues/12985#issuecomment-1030621355)
+>
+options, [see the following comment and GitHub issue](https://github.com/jOOQ/jOOQ/issues/12985#issuecomment-1030621355)
