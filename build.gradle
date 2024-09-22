@@ -1,0 +1,48 @@
+plugins {
+	id 'com.diffplug.spotless' version '6.25.0'
+}
+
+group = 'io.github.suppierk'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+subprojects {
+	// Language
+	apply plugin: 'java'
+
+	java {
+		sourceCompatibility = '17'
+		targetCompatibility = '17'
+		compileJava.options.encoding = 'UTF-8'
+
+		withSourcesJar()
+		withJavadocJar()
+	}
+
+	tasks.withType(Javadoc).configureEach {
+		options.addStringOption('Xdoclint:-missing', '-quiet')
+	}
+}
+
+spotless {
+	java {
+		target '**/src/*/java/**/*.java'
+
+		googleJavaFormat()
+	}
+
+	groovy {
+		target '**/src/**/*.groovy'
+
+		removeSemicolons()
+		greclipse()
+	}
+
+	groovyGradle {
+		target '**/*.gradle'
+		greclipse()
+	}
+}

@@ -1,0 +1,47 @@
+plugins {
+	id 'io.github.suppierk.jooq-java-class-generator'
+}
+
+group = 'io.github.suppierk'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.postgresql:postgresql:42.7.4'
+	jooqGenerator 'org.postgresql:postgresql:42.7.4'
+}
+
+flyway {
+	driver = 'org.postgresql.Driver'
+	defaultSchema = 'public'
+}
+
+jooq {
+	version = '3.19.11'
+
+	configurations {
+		main {
+			generationTool {
+				logging = org.jooq.meta.jaxb.Logging.WARN
+
+				generator {
+					database {
+						name = 'org.jooq.meta.postgres.PostgresDatabase'
+						inputSchema = 'public'
+					}
+
+					target {
+						packageName = 'io.github.suppierk.example'
+					}
+				}
+			}
+		}
+	}
+}
+
+jooqDockerImages {
+	postgres = 'postgres:16-alpine'
+}

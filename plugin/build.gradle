@@ -1,0 +1,100 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
+plugins {
+	id 'groovy'
+	id 'java-gradle-plugin'
+
+	id 'com.gradle.plugin-publish' version '1.3.0'
+	id 'org.nosphere.gradle.github.actions' version '1.4.0'
+}
+
+group = 'io.github.suppierk'
+version = '1.0.0-SNAPSHOT'
+
+def functionalTest = sourceSets.create('functionalTest')
+
+def functionalTestTask = tasks.register('functionalTest', Test) {
+	group = 'verification'
+	testClassesDirs = functionalTest.output.classesDirs
+	classpath = functionalTest.runtimeClasspath
+}
+
+tasks.named('check') {
+	dependsOn functionalTestTask
+}
+
+gradlePlugin {
+	website = 'https://github.com/SuppieRK/jooq-java-class-generator'
+	vcsUrl = 'https://github.com/SuppieRK/jooq-java-class-generator'
+
+	plugins.register('io.github.suppierk.jooq-java-class-generator') {
+		id = 'io.github.suppierk.jooq-java-class-generator'
+		implementationClass = 'io.github.suppierk.codegen.GeneratorPlugin'
+
+		displayName = 'jOOQ Class Generator'
+		description = 'Generates jOOQ Java classes by applying Flyway migrations to the database launched in Docker container'
+		tags = [
+			'generator',
+			'jooq',
+			'database',
+			'flyway',
+			'docker'
+		]
+	}
+
+	testSourceSets functionalTest
+}
+
+repositories {
+	gradlePluginPortal()
+	mavenCentral()
+}
+
+dependencies {
+	// ====================
+	// Exposed plugin dependencies
+
+	// https://plugins.gradle.org/plugin/org.flywaydb.flyway
+	api group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '10.18.0'
+
+	// https://plugins.gradle.org/plugin/nu.studer.jooq
+	api group: 'nu.studer', name: 'gradle-jooq-plugin', version: '9.0'
+
+
+	// ====================
+	// Implementation dependencies
+
+	// https://mvnrepository.com/artifact/org.testcontainers/postgresql
+	implementation group: 'org.testcontainers', name: 'postgresql', version: '1.20.1'
+
+	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
+	implementation group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '10.18.0'
+
+
+	// ====================
+	// Test dependencies
+
+	testImplementation gradleTestKit()
+
+	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.11.0'
+
+	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
+	testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.11.0'
+
+
+	// ====================
+	// Functional test dependencies
+
+	// https://mvnrepository.com/artifact/org.spockframework/spock-core
+	functionalTestImplementation(group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-3.0') {
+		exclude group: 'org.codehaus.groovy'
+	}
+
+	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
+	functionalTestRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.11.0'
+}
+
+tasks.withType(Test).configureEach {
+	useJUnitPlatform()
+}
