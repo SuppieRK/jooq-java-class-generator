@@ -88,7 +88,7 @@ dependencies {
 	// Functional test dependencies
 
 	// https://mvnrepository.com/artifact/org.spockframework/spock-core
-	functionalTestImplementation(group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-3.0') {
+	functionalTestImplementation(group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0') {
 		exclude group: 'org.codehaus.groovy'
 	}
 
