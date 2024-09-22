@@ -8,7 +8,7 @@ jOOQ Java Class Generator
 
 # Overview
 
-This Gradle plugin acts as a glue between two other great plugins available:
+This Gradle plugin acts as a glue between (and **exposes**) two other great plugins available:
 
 - [Flyway official Gradle plugin](https://plugins.gradle.org/plugin/org.flywaydb.flyway)
 - [jOOQ code generation plugin](https://github.com/etiennestuder/gradle-jooq-plugin) made
@@ -47,3 +47,6 @@ jooqDockerImages {
 > This configuration has been made to support jOOQ behavior when it comes to restricting code generation based on the
 > database version or other dependencies within your project restricting your
 > options, [see the following comment](https://github.com/jOOQ/jOOQ/issues/12985#issuecomment-1030621355)
+>
+> Arguably, this can also be automated based on [jOOQ version support matrix](https://www.jooq.org/download/support-matrix),
+> however I do not want to take away the ability to define your own Docker image.
