@@ -2,8 +2,8 @@
 
 ## Supported Versions
 
-This library has no dependencies on external libraries, which means that any security issue found should be reported
-immediately.
+This library has some dependencies on external libraries, which means that any security issue found should be reported
+immediately to us and the maintainer of said library.
 
 ## Reporting a Vulnerability
 
