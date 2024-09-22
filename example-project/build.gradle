@@ -1,0 +1,63 @@
+plugins {
+	id 'io.github.suppierk.jooq-java-class-generator'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.postgresql:postgresql:42.7.4'
+
+	// jooqGenerator scope comes from jOOQ code generator plugin
+	jooqGenerator 'org.postgresql:postgresql:42.7.4'
+}
+
+// Standard Flyway plugin configuration
+//
+// The chances are you already have one
+//
+// See https://documentation.red-gate.com/fd/gradle-task-184127407.html
+flyway {
+	// Required - used by plugin to select database Docker image
+	driver = 'org.postgresql.Driver'
+
+	// Optional, will fall back to 'public' if missing across both Flyway and jOOQ configurations
+	defaultSchema = 'public'
+}
+
+// (Almost) standard jOOQ code generator plugin configuration
+//
+// See https://github.com/etiennestuder/gradle-jooq-plugin?tab=readme-ov-file#configuration
+jooq {
+	// Allows you to select specific version of jOOQ you want to use
+	version = '3.19.11'
+
+	configurations {
+		main {
+			generationTool {
+				logging = org.jooq.meta.jaxb.Logging.WARN
+
+				// jdbc part can be omitted for simplicity
+
+				generator {
+					database {
+						name = 'org.jooq.meta.postgres.PostgresDatabase'
+
+						// Optional, but if Flyway doesn't specify one - this schema will be used to run Flyway migration
+						inputSchema = 'public'
+					}
+
+					target {
+						packageName = 'io.github.suppierk.example'
+					}
+				}
+			}
+		}
+	}
+}
+
+// Optional Docker image overrides, can be useful if you change jOOQ version in respective configuration
+jooqDockerImages {
+	postgres = 'postgres:16-alpine'
+}
