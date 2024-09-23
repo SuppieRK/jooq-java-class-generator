@@ -7,6 +7,8 @@ jOOQ Java Class Generator
 > I maintain this project alone and as much or as little as my **spare time** permits using my **personal** equipment.
 
 # Overview
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSuppieRK%2Fjooq-java-class-generator.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSuppieRK%2Fjooq-java-class-generator?ref=badge_shield)
+
 
 This Gradle plugin acts as a glue between (and **exposes**) two other great plugins available:
 
@@ -50,3 +52,7 @@ jooqDockerImages {
 >
 > Arguably, this can also be automated based on [jOOQ version support matrix](https://www.jooq.org/download/support-matrix),
 > however I do not want to take away the ability to define your own Docker image.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSuppieRK%2Fjooq-java-class-generator.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSuppieRK%2Fjooq-java-class-generator?ref=badge_large)
