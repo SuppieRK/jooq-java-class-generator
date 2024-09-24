@@ -1,4 +1,4 @@
-jOOQ Java Class Generator
+[jOOQ Java Class Generator](https://plugins.gradle.org/plugin/io.github.suppierk.jooq-java-class-generator)
 =========================
 
 > The work on this software project is in no way associated with my employer nor with the role I'm having at my
@@ -24,7 +24,30 @@ a database during the Gradle `build` stage:
 
 # Usage
 
-TO BE ADDED
+## Using plugins DSL
+
+```groovy
+plugins {
+  id 'io.github.suppierk.jooq-java-class-generator' version '1.0.0'
+}
+```
+
+## Using legacy plugin application
+
+```groovy
+buildscript {
+  repositories {
+    maven {
+      url 'https://plugins.gradle.org/m2/'
+    }
+  }
+  dependencies {
+    classpath 'io.github.suppierk:plugin:1.0.0'
+  }
+}
+
+apply plugin: 'io.github.suppierk.jooq-java-class-generator'
+```
 
 > You can also check `example-project` in this repo
 
