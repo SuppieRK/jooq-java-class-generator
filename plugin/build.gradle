@@ -56,7 +56,7 @@ dependencies {
 	// Exposed plugin dependencies
 
 	// https://plugins.gradle.org/plugin/org.flywaydb.flyway
-	api group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '10.18.0'
+	api group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '10.18.2'
 
 	// https://plugins.gradle.org/plugin/nu.studer.jooq
 	api group: 'nu.studer', name: 'gradle-jooq-plugin', version: '9.0'
