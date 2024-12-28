@@ -6,11 +6,18 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('jooqVersion', '3.19.16')
+	set('postgresqlVersion', '42.7.4')
+}
+
 dependencies {
-	implementation 'org.postgresql:postgresql:42.7.4'
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	implementation group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
 
 	// jooqGenerator scope comes from jOOQ code generator plugin
-	jooqGenerator 'org.postgresql:postgresql:42.7.4'
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	jooqGenerator group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
 }
 
 // Standard Flyway plugin configuration
@@ -31,7 +38,8 @@ flyway {
 // See https://github.com/etiennestuder/gradle-jooq-plugin?tab=readme-ov-file#configuration
 jooq {
 	// Allows you to select specific version of jOOQ you want to use
-	version = '3.19.11'
+	// https://mvnrepository.com/artifact/org.jooq/jooq
+	version = jooqVersion
 
 	configurations {
 		main {

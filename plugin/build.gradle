@@ -51,25 +51,35 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('flywayVersion', '11.1.0')
+	set('gradleJooqPluginVersion', '9.0')
+	set('testContainersVersion', '1.20.4')
+
+	set('jUnitVersion', '5.11.4')
+	set('jUnitPlatformLauncherVersion', '1.11.4')
+	set('spockVersion', '2.3-groovy-3.0')
+}
+
 dependencies {
 	// ====================
 	// Exposed plugin dependencies
 
 	// https://plugins.gradle.org/plugin/org.flywaydb.flyway
-	api group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '11.1.0'
+	api group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: flywayVersion
 
 	// https://plugins.gradle.org/plugin/nu.studer.jooq
-	api group: 'nu.studer', name: 'gradle-jooq-plugin', version: '9.0'
+	api group: 'nu.studer', name: 'gradle-jooq-plugin', version: gradleJooqPluginVersion
 
 
 	// ====================
 	// Implementation dependencies
 
 	// https://mvnrepository.com/artifact/org.testcontainers/postgresql
-	implementation group: 'org.testcontainers', name: 'postgresql', version: '1.20.4'
+	implementation group: 'org.testcontainers', name: 'postgresql', version: testContainersVersion
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
-	implementation group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '11.1.0'
+	implementation group: 'org.flywaydb', name: 'flyway-database-postgresql', version: flywayVersion
 
 
 	// ====================
@@ -78,22 +88,22 @@ dependencies {
 	testImplementation gradleTestKit()
 
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.11.3'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: jUnitVersion
 
 	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-	testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.11.3'
+	testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: jUnitPlatformLauncherVersion
 
 
 	// ====================
 	// Functional test dependencies
 
 	// https://mvnrepository.com/artifact/org.spockframework/spock-core
-	functionalTestImplementation(group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-3.0') {
+	functionalTestImplementation(group: 'org.spockframework', name: 'spock-core', version: spockVersion) {
 		exclude group: 'org.codehaus.groovy'
 	}
 
 	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-	functionalTestRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.11.3'
+	functionalTestRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-launcher', version: jUnitPlatformLauncherVersion
 }
 
 tasks.withType(Test).configureEach {
