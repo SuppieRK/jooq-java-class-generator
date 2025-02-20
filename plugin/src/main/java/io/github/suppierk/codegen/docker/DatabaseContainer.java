@@ -24,7 +24,10 @@
 
 package io.github.suppierk.codegen.docker;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
+import org.testcontainers.containers.JdbcDatabaseContainer;
+import org.testcontainers.dockerclient.DockerClientProviderStrategy;
 
 /**
  * General contract describing the behavior of the Docker image container.
@@ -32,28 +35,87 @@ import javax.annotation.Nonnull;
  * @see PostgreSQL#supportsDriverClassName(String) - additional recommended contract
  * @see AutoCloseable - enables try-with-resources for Docker image containers
  */
-public interface DatabaseContainer extends AutoCloseable {
+public abstract class DatabaseContainer implements AutoCloseable {
+  private final JdbcDatabaseContainer<?> databaseContainer;
+
+  /**
+   * Default constructor which invokes workaround for repeatable builds.
+   *
+   * @param databaseContainer to access TestContainers database instance
+   */
+  protected DatabaseContainer(JdbcDatabaseContainer<?> databaseContainer) {
+    disableTestContainersFailFastBehavior();
+
+    this.databaseContainer = databaseContainer;
+  }
+
+  /**
+   * @return container for operations if needed
+   */
+  protected JdbcDatabaseContainer<?> getDatabaseContainer() {
+    return databaseContainer;
+  }
+
   /**
    * @return database driver Java class name
    */
   @Nonnull
-  String getDriverClassName();
+  public String getDriverClassName() {
+    return databaseContainer.getDriverClassName();
+  }
 
   /**
    * @return database URL
    */
   @Nonnull
-  String getJdbcUrl();
+  public String getJdbcUrl() {
+    return databaseContainer.getJdbcUrl();
+  }
 
   /**
    * @return database user
    */
   @Nonnull
-  String getUsername();
+  public String getUsername() {
+    return databaseContainer.getUsername();
+  }
 
   /**
    * @return database user password
    */
   @Nonnull
-  String getPassword();
+  public String getPassword() {
+    return databaseContainer.getPassword();
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public void close() {
+    databaseContainer.close();
+  }
+
+  /**
+   * Workaround for non-repeatable nature of TestContainers execution in cases when Docker
+   * environment was not available at the start of the build stage.
+   *
+   * <p>The problem is that TestContainers {@link DockerClientProviderStrategy} has internal flag
+   * which flips to {@code true} once there was a failure.
+   *
+   * <p>Here we are prying open {@link DockerClientProviderStrategy} with reflection to "unflip"
+   * that flag to allow retries.
+   *
+   * @see <a href="https://github.com/testcontainers/testcontainers-java/issues/6441">Related GitHub
+   *     issue</a>
+   */
+  private void disableTestContainersFailFastBehavior() {
+    try {
+      final var failFastField =
+          DockerClientProviderStrategy.class.getDeclaredField("FAIL_FAST_ALWAYS");
+      failFastField.setAccessible(true);
+      ((AtomicBoolean) failFastField.get(null)).set(false);
+      failFastField.setAccessible(false);
+    } catch (Exception e) {
+      throw new IllegalStateException("Unable to reset TestContainers fail fast flag", e);
+    }
+  }
 }
