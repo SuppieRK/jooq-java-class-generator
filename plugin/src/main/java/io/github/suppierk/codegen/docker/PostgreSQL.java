@@ -24,14 +24,11 @@
 
 package io.github.suppierk.codegen.docker;
 
-import javax.annotation.Nonnull;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 /** Defines database container with PostgreSQL database. */
-public class PostgreSQL implements DatabaseContainer {
+public class PostgreSQL extends DatabaseContainer {
   private static final String DRIVER_CLASS_NAME = "org.postgresql.Driver";
-
-  private final PostgreSQLContainer<?> container;
 
   /**
    * Constructor.
@@ -39,8 +36,8 @@ public class PostgreSQL implements DatabaseContainer {
    * @param dockerImageName to use as a base
    */
   public PostgreSQL(String dockerImageName) {
-    this.container = new PostgreSQLContainer<>(dockerImageName);
-    this.container.start();
+    super(new PostgreSQLContainer<>(dockerImageName));
+    getDatabaseContainer().start();
   }
 
   /**
@@ -51,35 +48,5 @@ public class PostgreSQL implements DatabaseContainer {
    */
   public static boolean supportsDriverClassName(String driverClassName) {
     return DRIVER_CLASS_NAME.equals(driverClassName);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public @Nonnull String getDriverClassName() {
-    return container.getDriverClassName();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public @Nonnull String getJdbcUrl() {
-    return container.getJdbcUrl();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public @Nonnull String getUsername() {
-    return container.getUsername();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public @Nonnull String getPassword() {
-    return container.getPassword();
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void close() throws Exception {
-    container.stop();
   }
 }

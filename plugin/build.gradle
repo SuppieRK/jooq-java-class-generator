@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'io.github.suppierk'
-version = '1.0.1'
+version = '1.0.2'
 
 def functionalTest = sourceSets.create('functionalTest')
 
