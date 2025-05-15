@@ -36,62 +36,73 @@ import org.testcontainers.dockerclient.DockerClientProviderStrategy;
  * @see AutoCloseable - enables try-with-resources for Docker image containers
  */
 public abstract class DatabaseContainer implements AutoCloseable {
-  private final JdbcDatabaseContainer<?> databaseContainer;
+  private final JdbcDatabaseContainer<?> container;
 
   /**
    * Default constructor which invokes workaround for repeatable builds.
    *
-   * @param databaseContainer to access TestContainers database instance
+   * @param container to access TestContainers database instance
    */
-  protected DatabaseContainer(JdbcDatabaseContainer<?> databaseContainer) {
+  protected DatabaseContainer(JdbcDatabaseContainer<?> container) {
     disableTestContainersFailFastBehavior();
 
-    this.databaseContainer = databaseContainer;
+    this.container = container;
   }
 
   /**
+   * Provides database container handle.
+   *
    * @return container for operations if needed
    */
+  @SuppressWarnings("squid:S1452")
   protected JdbcDatabaseContainer<?> getDatabaseContainer() {
-    return databaseContainer;
+    return container;
   }
 
   /**
+   * Provides database driver Java class name
+   *
    * @return database driver Java class name
    */
   @Nonnull
   public String getDriverClassName() {
-    return databaseContainer.getDriverClassName();
+    return container.getDriverClassName();
   }
 
   /**
+   * Provides database URL to the container
+   *
    * @return database URL
    */
   @Nonnull
   public String getJdbcUrl() {
-    return databaseContainer.getJdbcUrl();
+    return container.getJdbcUrl();
   }
 
   /**
+   * Provides database username
+   *
    * @return database user
    */
   @Nonnull
   public String getUsername() {
-    return databaseContainer.getUsername();
+    return container.getUsername();
   }
 
   /**
+   * Provides database password
+   *
    * @return database user password
    */
   @Nonnull
   public String getPassword() {
-    return databaseContainer.getPassword();
+    return container.getPassword();
   }
 
   /** {@inheritDoc} */
   @Override
   public void close() {
-    databaseContainer.close();
+    container.close();
   }
 
   /**
@@ -107,6 +118,7 @@ public abstract class DatabaseContainer implements AutoCloseable {
    * @see <a href="https://github.com/testcontainers/testcontainers-java/issues/6441">Related GitHub
    *     issue</a>
    */
+  @SuppressWarnings("squid:S3011")
   private void disableTestContainersFailFastBehavior() {
     try {
       final var failFastField =

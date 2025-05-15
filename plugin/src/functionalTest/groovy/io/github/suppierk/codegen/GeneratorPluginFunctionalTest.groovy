@@ -56,8 +56,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.4'
-				jooqGenerator 'org.postgresql:postgresql:42.7.4'
+				implementation 'org.postgresql:postgresql:42.7.5'
+				jooqGenerator 'org.postgresql:postgresql:42.7.5'
 			}
 
 			flyway {
@@ -66,7 +66,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.19.11'
+				version = '3.20.3'
 
 				configurations {
 					main {
@@ -143,8 +143,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.4'
-				jooqGenerator 'org.postgresql:postgresql:42.7.4'
+				implementation 'org.postgresql:postgresql:42.7.5'
+				jooqGenerator 'org.postgresql:postgresql:42.7.5'
 			}
 
 			flyway {
@@ -153,7 +153,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.19.11'
+				version = '3.20.3'
 
 				configurations {
 					main {
@@ -233,8 +233,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.4'
-				jooqGenerator 'org.postgresql:postgresql:42.7.4'
+				implementation 'org.postgresql:postgresql:42.7.5'
+				jooqGenerator 'org.postgresql:postgresql:42.7.5'
 			}
 
 			flyway {
@@ -243,7 +243,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.19.11'
+				version = '3.20.3'
 
 				configurations {
 					main {
@@ -327,8 +327,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.4'
-				jooqGenerator 'org.postgresql:postgresql:42.7.4'
+				implementation 'org.postgresql:postgresql:42.7.5'
+				jooqGenerator 'org.postgresql:postgresql:42.7.5'
 			}
 
 			flyway {
@@ -337,7 +337,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.19.11'
+				version = '3.20.3'
 
 				configurations {
 					main {
@@ -418,8 +418,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.4'
-				jooqGenerator 'org.postgresql:postgresql:42.7.4'
+				implementation 'org.postgresql:postgresql:42.7.5'
+				jooqGenerator 'org.postgresql:postgresql:42.7.5'
 			}
 
 			flyway {
@@ -428,7 +428,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.19.11'
+				version = '3.20.3'
 
 				configurations {
 					main {

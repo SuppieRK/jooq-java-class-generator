@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'io.github.suppierk'
-version = '1.0.2'
+version = '2.0.0'
 
 def functionalTest = sourceSets.create('functionalTest')
 
@@ -52,12 +52,12 @@ repositories {
 }
 
 ext {
-	set('flywayVersion', '11.1.0')
-	set('gradleJooqPluginVersion', '9.0')
-	set('testContainersVersion', '1.20.4')
+	set('flywayVersion', '11.8.2')
+	set('gradleJooqPluginVersion', '10.1')
+	set('testContainersVersion', '1.21.0')
 
-	set('jUnitVersion', '5.11.4')
-	set('jUnitPlatformLauncherVersion', '1.11.4')
+	set('jUnitVersion', '5.12.2')
+	set('jUnitPlatformLauncherVersion', '1.12.2')
 	set('spockVersion', '2.3-groovy-3.0')
 }
 

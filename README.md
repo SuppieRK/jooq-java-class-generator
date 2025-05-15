@@ -24,11 +24,18 @@ a database during the Gradle `build` stage:
 
 # Usage
 
+## Requirements
+
+- Java 21 or above (as per [gradle-jooq-plugin 10.0 release notes](https://github.com/etiennestuder/gradle-jooq-plugin/releases/tag/v10.0))
+- jOOQ 2.20.3 or above (as per [gradle-jooq-plugin 10.1 release notes](https://github.com/etiennestuder/gradle-jooq-plugin/releases/tag/v10.1))
+- Gradle 8.6 or above (as per [gradle-jooq-plugin 10.0 release notes](https://github.com/etiennestuder/gradle-jooq-plugin/releases/tag/v10.0))
+- PostgreSQL 17 or above (as per [jOOQ OSS support matrix](https://www.jooq.org/download/support-matrix#PostgreSQL))
+
 ## Using plugins DSL
 
 ```groovy
 plugins {
-  id 'io.github.suppierk.jooq-java-class-generator' version '1.0.2'
+  id 'io.github.suppierk.jooq-java-class-generator' version '2.0.0'
 }
 ```
 
@@ -42,7 +49,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'io.github.suppierk:plugin:1.0.2'
+    classpath 'io.github.suppierk:plugin:2.0.0'
   }
 }
 
@@ -65,7 +72,7 @@ The only configurable thing this plugin offers is to set a specific Docker image
 ```groovy
 jooqDockerImages {
     // These are default values that can be overridden
-    postgres = 'postgres:16-alpine'
+    postgres = 'postgres:17-alpine'
 }
 ```
 

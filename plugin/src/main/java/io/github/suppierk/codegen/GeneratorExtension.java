@@ -48,8 +48,9 @@ public class GeneratorExtension {
    * Default PostgreSQL Docker image tag.
    *
    * @see <a href="https://hub.docker.com/_/postgres">Available tags on Docker hub</a>
+   * @see <a href="https://www.jooq.org/download/support-matrix#PostgreSQL">jOOQ support matrix</a>
    */
-  private static final String DEFAULT_POSGTRES_IMAGE = "postgres:16-alpine";
+  private static final String DEFAULT_POSGTRES_IMAGE = "postgres:17-alpine";
 
   /** User-defined PostgreSQL Docker image tag. */
   @Nullable public String postgres;
@@ -76,6 +77,8 @@ public class GeneratorExtension {
   }
 
   /**
+   * Provides a stable Docker image tag for operations
+   *
    * @return null-safe Docker image tag for PostgreSQL database
    */
   public @Nonnull String getPostgreSQLDockerImage() {
