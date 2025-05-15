@@ -26,9 +26,10 @@ a database during the Gradle `build` stage:
 
 ## Requirements
 
-- Java 21 or above
-- jOOQ 2.20.3 or above
-- Gradle 8.6 or above
+- Java 21 or above (as per [gradle-jooq-plugin 10.0 release notes](https://github.com/etiennestuder/gradle-jooq-plugin/releases/tag/v10.0))
+- jOOQ 2.20.3 or above (as per [gradle-jooq-plugin 10.1 release notes](https://github.com/etiennestuder/gradle-jooq-plugin/releases/tag/v10.1))
+- Gradle 8.6 or above (as per [gradle-jooq-plugin 10.0 release notes](https://github.com/etiennestuder/gradle-jooq-plugin/releases/tag/v10.0))
+- PostgreSQL 17 or above (as per [jOOQ OSS support matrix](https://www.jooq.org/download/support-matrix#PostgreSQL))
 
 ## Using plugins DSL
 
