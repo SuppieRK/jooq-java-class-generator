@@ -24,6 +24,12 @@ a database during the Gradle `build` stage:
 
 # Usage
 
+## Requirements
+
+- Java 21 or above
+- jOOQ 2.20.3 or above
+- Gradle 8.6 or above
+
 ## Using plugins DSL
 
 ```groovy
