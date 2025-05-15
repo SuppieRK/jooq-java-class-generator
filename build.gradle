@@ -19,7 +19,7 @@ subprojects {
 	apply plugin: 'java'
 
 	java {
-		def javaVersion = JavaVersion.VERSION_17.toString()
+		def javaVersion = JavaVersion.VERSION_21.toString()
 
 		sourceCompatibility = javaVersion
 		targetCompatibility = javaVersion

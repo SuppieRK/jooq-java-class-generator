@@ -108,7 +108,7 @@ public class GeneratorPlugin implements Plugin<Project> {
                       final var generateDatabaseClassesTask =
                           project
                               .getTasks()
-                              .create(
+                              .register(
                                   GeneratorTask.createTaskName(jooqConfig),
                                   GeneratorTask.class,
                                   pluginExtension,

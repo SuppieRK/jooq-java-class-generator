@@ -28,7 +28,7 @@ a database during the Gradle `build` stage:
 
 ```groovy
 plugins {
-  id 'io.github.suppierk.jooq-java-class-generator' version '1.0.2'
+  id 'io.github.suppierk.jooq-java-class-generator' version '2.0.0'
 }
 ```
 
@@ -42,7 +42,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'io.github.suppierk:plugin:1.0.2'
+    classpath 'io.github.suppierk:plugin:2.0.0'
   }
 }
 
@@ -65,7 +65,7 @@ The only configurable thing this plugin offers is to set a specific Docker image
 ```groovy
 jooqDockerImages {
     // These are default values that can be overridden
-    postgres = 'postgres:16-alpine'
+    postgres = 'postgres:17-alpine'
 }
 ```
 
