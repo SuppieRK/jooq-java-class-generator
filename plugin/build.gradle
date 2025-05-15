@@ -58,7 +58,7 @@ ext {
 
 	set('jUnitVersion', '5.12.2')
 	set('jUnitPlatformLauncherVersion', '1.12.2')
-	set('spockVersion', '2.3-groovy-4.0')
+	set('spockVersion', '2.3-groovy-3.0')
 }
 
 dependencies {

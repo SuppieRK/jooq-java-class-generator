@@ -62,6 +62,8 @@ public final class Strings {
   }
 
   /**
+   * Returns capitalized string
+   *
    * @param value to capitalize
    * @return initial {@link String} with a capitalized first letter, e.g. 'value' turns into 'Value'
    *     or empty {@link String} if the input was null or blank

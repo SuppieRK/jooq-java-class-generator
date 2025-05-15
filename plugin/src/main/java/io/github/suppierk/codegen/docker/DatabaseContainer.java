@@ -50,6 +50,8 @@ public abstract class DatabaseContainer implements AutoCloseable {
   }
 
   /**
+   * Provides database container handle.
+   *
    * @return container for operations if needed
    */
   @SuppressWarnings("squid:S1452")
@@ -58,6 +60,8 @@ public abstract class DatabaseContainer implements AutoCloseable {
   }
 
   /**
+   * Provides database driver Java class name
+   *
    * @return database driver Java class name
    */
   @Nonnull
@@ -66,6 +70,8 @@ public abstract class DatabaseContainer implements AutoCloseable {
   }
 
   /**
+   * Provides database URL to the container
+   *
    * @return database URL
    */
   @Nonnull
@@ -74,6 +80,8 @@ public abstract class DatabaseContainer implements AutoCloseable {
   }
 
   /**
+   * Provides database username
+   *
    * @return database user
    */
   @Nonnull
@@ -82,6 +90,8 @@ public abstract class DatabaseContainer implements AutoCloseable {
   }
 
   /**
+   * Provides database password
+   *
    * @return database user password
    */
   @Nonnull

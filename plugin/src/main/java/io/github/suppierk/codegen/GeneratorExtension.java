@@ -77,6 +77,8 @@ public class GeneratorExtension {
   }
 
   /**
+   * Provides a stable Docker image tag for operations
+   *
    * @return null-safe Docker image tag for PostgreSQL database
    */
   public @Nonnull String getPostgreSQLDockerImage() {

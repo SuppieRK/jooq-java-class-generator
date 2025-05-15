@@ -58,6 +58,11 @@ public class GeneratorPlugin implements Plugin<Project> {
   private static final String COMPILE_JAVA_TASK_NAME = "compileJava";
   private static final String SOURCES_JAR_TASK_NAME = "sourcesJar";
 
+  /** Default constructor */
+  public GeneratorPlugin() {
+    // No operations required
+  }
+
   /**
    * Plugin entry point
    *
