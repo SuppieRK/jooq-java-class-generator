@@ -35,7 +35,7 @@ a database during the Gradle `build` stage:
 
 ```groovy
 plugins {
-  id 'io.github.suppierk.jooq-java-class-generator' version '2.0.0'
+  id 'io.github.suppierk.jooq-java-class-generator' version '2.0.1'
 }
 ```
 
@@ -49,7 +49,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'io.github.suppierk:plugin:2.0.0'
+    classpath 'io.github.suppierk:plugin:2.0.1'
   }
 }
 
