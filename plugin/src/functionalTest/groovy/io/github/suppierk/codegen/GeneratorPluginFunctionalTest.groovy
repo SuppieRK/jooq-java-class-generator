@@ -56,8 +56,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.5'
-				jooqGenerator 'org.postgresql:postgresql:42.7.5'
+				implementation 'org.postgresql:postgresql:42.7.7'
+				jooqGenerator 'org.postgresql:postgresql:42.7.7'
 			}
 
 			flyway {
@@ -143,8 +143,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.5'
-				jooqGenerator 'org.postgresql:postgresql:42.7.5'
+				implementation 'org.postgresql:postgresql:42.7.7'
+				jooqGenerator 'org.postgresql:postgresql:42.7.7'
 			}
 
 			flyway {
@@ -233,8 +233,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.5'
-				jooqGenerator 'org.postgresql:postgresql:42.7.5'
+				implementation 'org.postgresql:postgresql:42.7.7'
+				jooqGenerator 'org.postgresql:postgresql:42.7.7'
 			}
 
 			flyway {
@@ -327,8 +327,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.5'
-				jooqGenerator 'org.postgresql:postgresql:42.7.5'
+				implementation 'org.postgresql:postgresql:42.7.7'
+				jooqGenerator 'org.postgresql:postgresql:42.7.7'
 			}
 
 			flyway {
@@ -418,8 +418,8 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			dependencies {
-				implementation 'org.postgresql:postgresql:42.7.5'
-				jooqGenerator 'org.postgresql:postgresql:42.7.5'
+				implementation 'org.postgresql:postgresql:42.7.7'
+				jooqGenerator 'org.postgresql:postgresql:42.7.7'
 			}
 
 			flyway {
