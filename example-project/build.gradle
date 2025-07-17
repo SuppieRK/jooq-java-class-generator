@@ -6,18 +6,13 @@ repositories {
 	mavenCentral()
 }
 
-ext {
-	set('jooqVersion', '3.20.4')
-	set('postgresqlVersion', '42.7.7')
-}
-
 dependencies {
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	implementation group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.7'
 
 	// jooqGenerator scope comes from jOOQ code generator plugin
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	jooqGenerator group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
+	jooqGenerator group: 'org.postgresql', name: 'postgresql', version: '42.7.7'
 }
 
 // Standard Flyway plugin configuration
@@ -39,7 +34,7 @@ flyway {
 jooq {
 	// Allows you to select specific version of jOOQ you want to use
 	// https://mvnrepository.com/artifact/org.jooq/jooq
-	version = jooqVersion
+	version = '3.20.5'
 
 	configurations {
 		main {

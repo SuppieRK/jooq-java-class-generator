@@ -66,7 +66,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.20.3'
+				version = '3.20.5'
 
 				configurations {
 					main {
@@ -153,7 +153,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.20.3'
+				version = '3.20.5'
 
 				configurations {
 					main {
@@ -243,7 +243,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.20.3'
+				version = '3.20.5'
 
 				configurations {
 					main {
@@ -337,7 +337,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.20.3'
+				version = '3.20.5'
 
 				configurations {
 					main {
@@ -428,7 +428,7 @@ class GeneratorPluginFunctionalTest extends Specification {
 			}
 
 			jooq {
-				version = '3.20.3'
+				version = '3.20.5'
 
 				configurations {
 					main {
