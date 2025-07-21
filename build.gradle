@@ -2,7 +2,7 @@ import java.nio.charset.StandardCharsets
 
 plugins {
 	// https://plugins.gradle.org/plugin/com.diffplug.spotless
-	id 'com.diffplug.spotless' version '7.1.0'
+	id 'com.diffplug.spotless' version '7.2.0'
 }
 
 repositories {
