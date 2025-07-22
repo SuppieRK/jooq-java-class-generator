@@ -81,7 +81,7 @@ dependencies {
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.13.4'
 
 	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-	testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.13.3'
+	testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.13.4'
 
 
 	// ====================
@@ -93,7 +93,7 @@ dependencies {
 	}
 
 	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-	functionalTestRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.13.3'
+	functionalTestRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.13.4'
 }
 
 tasks.withType(Test).configureEach {
