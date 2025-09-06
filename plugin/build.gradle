@@ -56,7 +56,7 @@ dependencies {
 	// Exposed plugin dependencies
 
 	// https://plugins.gradle.org/plugin/org.flywaydb.flyway
-	api group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '11.11.2'
+	api group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '11.12.0'
 
 	// https://plugins.gradle.org/plugin/nu.studer.jooq
 	api group: 'nu.studer', name: 'gradle-jooq-plugin', version: '10.1'
@@ -69,7 +69,7 @@ dependencies {
 	implementation group: 'org.testcontainers', name: 'postgresql', version: '1.21.3'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
-	implementation group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '11.11.2'
+	implementation group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '11.12.0'
 
 
 	// ====================
