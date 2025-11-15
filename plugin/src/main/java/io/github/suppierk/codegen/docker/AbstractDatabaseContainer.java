@@ -24,18 +24,24 @@
 
 package io.github.suppierk.codegen.docker;
 
+import java.lang.reflect.Modifier;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
+import org.gradle.api.logging.Logger;
+import org.gradle.api.logging.Logging;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.dockerclient.DockerClientProviderStrategy;
 
 /**
- * General contract describing the behavior of the Docker image container.
+ * Base class that wraps a Testcontainers {@link JdbcDatabaseContainer} and exposes the common
+ * JDBC-oriented methods used by {@code AbstractDatabaseTask}. Concrete subclasses provide driver
+ * specific behaviour (e.g. MySQL driver loading).
  *
- * @see PostgreSQL#supportsDriverClassName(String) - additional recommended contract
- * @see AutoCloseable - enables try-with-resources for Docker image containers
+ * @see PostgreSQL
+ * @see MySQL
  */
-public abstract class DatabaseContainer implements AutoCloseable {
+public abstract class AbstractDatabaseContainer implements AutoCloseable {
+  private static final Logger LOGGER = Logging.getLogger(AbstractDatabaseContainer.class);
   private final JdbcDatabaseContainer<?> container;
 
   /**
@@ -43,7 +49,7 @@ public abstract class DatabaseContainer implements AutoCloseable {
    *
    * @param container to access TestContainers database instance
    */
-  protected DatabaseContainer(JdbcDatabaseContainer<?> container) {
+  protected AbstractDatabaseContainer(@Nonnull JdbcDatabaseContainer<?> container) {
     disableTestContainersFailFastBehavior();
 
     this.container = container;
@@ -55,7 +61,7 @@ public abstract class DatabaseContainer implements AutoCloseable {
    * @return container for operations if needed
    */
   @SuppressWarnings("squid:S1452")
-  protected JdbcDatabaseContainer<?> getDatabaseContainer() {
+  protected @Nonnull JdbcDatabaseContainer<?> getDatabaseContainer() {
     return container;
   }
 
@@ -123,11 +129,35 @@ public abstract class DatabaseContainer implements AutoCloseable {
     try {
       final var failFastField =
           DockerClientProviderStrategy.class.getDeclaredField("FAIL_FAST_ALWAYS");
+
+      if (!Modifier.isStatic(failFastField.getModifiers())
+          || !AtomicBoolean.class.isAssignableFrom(failFastField.getType())) {
+        LOGGER.debug(
+            "Testcontainers FAIL_FAST_ALWAYS field no longer matches the expected static AtomicBoolean signature; skipping fail-fast relaxation.");
+        return;
+      }
+
       failFastField.setAccessible(true);
-      ((AtomicBoolean) failFastField.get(null)).set(false);
-      failFastField.setAccessible(false);
+      final AtomicBoolean flag = (AtomicBoolean) failFastField.get(null);
+      if (flag != null) {
+        flag.set(false);
+      } else {
+        LOGGER.debug(
+            "Resolved Testcontainers FAIL_FAST_ALWAYS flag to null; leaving fail-fast behaviour untouched.");
+      }
+    } catch (NoSuchFieldException e) {
+      LOGGER.debug(
+          "Testcontainers {} no longer exposes FAIL_FAST_ALWAYS; skipping fail-fast relaxation.",
+          resolveTestcontainersVersion());
     } catch (Exception e) {
-      throw new IllegalStateException("Unable to reset TestContainers fail fast flag", e);
+      LOGGER.warn(
+          "Unable to adjust Testcontainers fail-fast flag; continuing with default behaviour.", e);
     }
+  }
+
+  private @Nonnull String resolveTestcontainersVersion() {
+    final Package pkg = DockerClientProviderStrategy.class.getPackage();
+    final String version = pkg != null ? pkg.getImplementationVersion() : null;
+    return version != null ? version : "unknown";
   }
 }

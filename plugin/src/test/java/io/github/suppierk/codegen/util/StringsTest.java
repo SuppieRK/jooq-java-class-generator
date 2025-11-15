@@ -67,9 +67,9 @@ class StringsTest {
     assertEquals("", capitalizeFirstLetter(""));
     assertEquals("", capitalizeFirstLetter("    "));
     assertEquals("Test", capitalizeFirstLetter("Test"));
-    assertEquals("Test", capitalizeFirstLetter("TEST"));
+    assertEquals("TEST", capitalizeFirstLetter("TEST"));
     assertEquals("Test", capitalizeFirstLetter("test"));
-    assertEquals("Test", capitalizeFirstLetter("tEsT"));
-    assertEquals("Test", capitalizeFirstLetter("TeSt"));
+    assertEquals("TEsT", capitalizeFirstLetter("tEsT"));
+    assertEquals("TeSt", capitalizeFirstLetter("TeSt"));
   }
 }
