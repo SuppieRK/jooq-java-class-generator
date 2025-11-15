@@ -27,11 +27,12 @@ package io.github.suppierk.codegen.util;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/** {@link String}-related utilities. */
+/** {@link String}-related utilities used across the DSL and task registration logic. */
 public final class Strings {
   /** Just en empty string. */
   public static final String EMPTY = "";
 
+  /** Hidden constructor to prevent instantiation. */
   private Strings() {
     throw new IllegalAccessError("Utility class");
   }
@@ -74,10 +75,7 @@ public final class Strings {
       return EMPTY;
     }
 
-    var result = value.substring(0, 1).toUpperCase();
-    if (value.length() > 1) {
-      result += value.substring(1).toLowerCase();
-    }
-    return result;
+    final var first = value.substring(0, 1).toUpperCase();
+    return value.length() > 1 ? first + value.substring(1) : first;
   }
 }

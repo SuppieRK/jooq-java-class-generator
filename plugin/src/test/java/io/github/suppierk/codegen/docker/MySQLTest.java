@@ -24,35 +24,25 @@
 
 package io.github.suppierk.codegen.docker;
 
-import javax.annotation.Nonnull;
-import org.testcontainers.containers.PostgreSQLContainer;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Testcontainers-backed PostgreSQL database used when schemas declare the PostgreSQL JDBC driver.
- *
- * @see MySQL
- */
-public class PostgreSQL extends AbstractDatabaseContainer {
-  private static final String DRIVER_CLASS_NAME = "org.postgresql.Driver";
+import org.junit.jupiter.api.Test;
 
-  /**
-   * Creates a PostgreSQL Testcontainer using supplied Docker image.
-   *
-   * @param dockerImageName Docker tag to launch
-   */
-  public PostgreSQL(@Nonnull String dockerImageName) {
-    super(new PostgreSQLContainer<>(dockerImageName));
-    getDatabaseContainer().start();
+class MySQLTest {
+  @Test
+  void supportsMySqlDriverClassName() {
+    assertTrue(MySQL.supportsDriverClassName("com.mysql.cj.jdbc.Driver"));
   }
 
-  /**
-   * <b>RECOMMENDED TO BE CREATED ACROSS ALL OTHER {@link AbstractDatabaseContainer}
-   * IMPLEMENTATIONS</b>
-   *
-   * @param driverClassName used in Flyway / jOOQ Gradle configurations
-   * @return {@code true} if current implementation supports given driver, {@code false} otherwise
-   */
-  public static boolean supportsDriverClassName(@Nonnull String driverClassName) {
-    return DRIVER_CLASS_NAME.equals(driverClassName);
+  @Test
+  void supportsLegacyMySqlDriverClassName() {
+    assertTrue(MySQL.supportsDriverClassName("com.mysql.jdbc.Driver"));
+  }
+
+  @Test
+  void rejectsOtherDriverClassNames() {
+    assertFalse(MySQL.supportsDriverClassName("org.postgresql.Driver"));
+    assertFalse(MySQL.supportsDriverClassName("oracle.jdbc.OracleDriver"));
   }
 }

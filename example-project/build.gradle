@@ -15,19 +15,6 @@ dependencies {
 	jooqGenerator group: 'org.postgresql', name: 'postgresql', version: '42.7.8'
 }
 
-// Standard Flyway plugin configuration
-//
-// The chances are you already have one
-//
-// See https://documentation.red-gate.com/fd/gradle-task-184127407.html
-flyway {
-	// Required - used by plugin to select database Docker image
-	driver = 'org.postgresql.Driver'
-
-	// Optional, will fall back to 'public' if missing across both Flyway and jOOQ configurations
-	defaultSchema = 'public'
-}
-
 // (Almost) standard jOOQ code generator plugin configuration
 //
 // See https://github.com/etiennestuder/gradle-jooq-plugin?tab=readme-ov-file#configuration
@@ -60,7 +47,20 @@ jooq {
 	}
 }
 
-// Optional Docker image overrides, can be useful if you change jOOQ version in respective configuration
-jooqDockerImages {
-	postgres = 'postgres:17-alpine'
+jooqCodegen {
+	database('postgresDb') {
+		driver = 'org.postgresql.Driver'
+
+		container {
+			image = 'postgres:17-alpine'
+		}
+
+		schema('public') {
+			flyway {
+				locations = 'classpath:db/migration'
+				defaultSchema = 'public'
+			}
+			jooqConfigurations(['main'])
+		}
+	}
 }

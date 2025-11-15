@@ -25,13 +25,13 @@ For further reference, please consider the following sections:
 
 1. You will need to add a [Testcontainers](https://java.testcontainers.org/modules/databases/)-based implementation of your database container:
    - Your class needs to be in `io.github.suppierk.codegen.docker` package.
-   - Your class has to implement `io.github.suppierk.codegen.docker.DatabaseContainer` interface.
+   - Your class has to implement `io.github.suppierk.codegen.docker.AbstractDatabaseContainer` interface.
    - **RECOMMENDED**: take a look at `io.github.suppierk.codegen.docker.PostgreSQL` implementation.
-2. You should add your new class to `io.github.suppierk.codegen.GeneratorExtension`:
-   - Add constant with default Docker image tag.
-   - Add the way to get your database container by database driver name.
+2. Wire the new driver inside `io.github.suppierk.codegen.extensions.GeneratorExtension.DatabaseExtension`:
+   - Provide a sensible default Testcontainers image for the driver.
+   - Extend `createDatabaseContainer` / `supportsDriverClassName` handling to return your container implementation.
 3. Update the artifact version **ONLY** in `plugin/build.gradle`.
-4. Update `README.md` configuration section to reference a new option to set Docker image for your database.
+4. Update `README.md` configuration section to reference how to override the container image for your database.
 
 ### Build tools
 
