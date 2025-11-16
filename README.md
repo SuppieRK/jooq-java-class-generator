@@ -205,15 +205,6 @@ For deeper tuning, see:
 
 ---
 
-## Supported Databases
-
-| Database   | Supported | Default Image        |
-|------------|-----------|----------------------|
-| PostgreSQL | ✅         | `postgres:17-alpine` |
-| MySQL      | ✅         | `mysql:8.4`          |
-
----
-
 ## Troubleshooting
 
 - Ensure your `jooqConfigurations` match the names declared under `jooq.configurations`.
