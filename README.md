@@ -39,6 +39,8 @@ classes in a single Gradle task.
 | Gradle     | 8.6+            | Same as gradle-jooq 10.0                                                                                      |
 | PostgreSQL | 17+             | As per [jOOQ OSS support matrix](https://www.jooq.org/download/support-matrix#PostgreSQL)                     |
 
+> Note for `spring-boot-starter-jooq` users - please, look which jOOQ dependency is used by this dependency and set the same version in `jooq { version = 'XXX' }`
+
 ---
 
 ## Installation
