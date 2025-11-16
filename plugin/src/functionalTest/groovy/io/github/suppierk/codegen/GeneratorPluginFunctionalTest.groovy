@@ -1290,7 +1290,8 @@ tasks.withType(nu.studer.gradle.jooq.JooqGenerate).configureEach { task ->
 					includeFlywaySchema,
 					includeJooqSchema,
 					flywaySchemaValue,
-					jooqSchemaValue)
+					jooqSchemaValue,
+					dslSchemaName)
 		}
 
 		when:
@@ -1309,11 +1310,12 @@ tasks.withType(nu.studer.gradle.jooq.JooqGenerate).configureEach { task ->
 		}
 
 		where:
-		scenarioDescription         | includeFlywaySchema | includeJooqSchema | flywaySchemaValue | jooqSchemaValue || expectSuccess | expectedMessage
-		'Flyway and jOOQ schemas'   | false               | false             | null              | null            || false         | "Database schema must be declared via Flyway 'defaultSchema' or jOOQ 'inputSchema'"
-		'Flyway default schema'     | false               | true              | null              | 'public'        || true          | null
-		'jOOQ input schema'         | true                | false             | 'public'         | null            || true          | null
-		'Mismatched schemas'        | true                | true              | 'audit'          | 'public'        || false         | "Flyway default schema 'audit' does not match jOOQ input schema 'public'"
+		scenarioDescription                | includeFlywaySchema | includeJooqSchema | flywaySchemaValue | jooqSchemaValue | dslSchemaName || expectSuccess | expectedMessage
+		'DSL schema name fallback'         | false               | false             | null              | null            | 'analytics'   || true          | null
+		'Flyway default schema'            | false               | true              | null              | 'public'        | 'public'      || true          | null
+		'jOOQ input schema'                | true                | false             | 'public'          | null            | 'public'      || true          | null
+		'Mismatched schemas'               | true                | true              | 'audit'           | 'public'        | 'public'      || false         | "Flyway default schema 'audit' does not match jOOQ input schema 'public'"
+		'Missing schema declarations all'  | false               | false             | null              | null            | '  '          || false         | "Database schema must be declared via Flyway 'defaultSchema' or jOOQ 'inputSchema'"
 	}
 
 	def "dsl fails when driver is not yet supported"() {
@@ -3311,10 +3313,12 @@ jooqCodegen {
 			boolean includeFlywaySchema,
 			boolean includeJooqSchema,
 			String flywaySchema = 'public',
-			String jooqSchema = 'public'
+			String jooqSchema = 'public',
+			String schemaName = 'public'
 	) {
 		def resolvedFlywaySchema = flywaySchema ?: 'public'
 		def resolvedJooqSchema = jooqSchema ?: 'public'
+		def resolvedSchemaName = schemaName != null ? schemaName : 'public'
 		def flywaySchemaLine =
 				includeFlywaySchema ? "\n\t\t\t\t\tdefaultSchema = '${resolvedFlywaySchema}'" : ''
 		def jooqSchemaLine =
@@ -3364,7 +3368,7 @@ jooqCodegen {
 			database('postgresDb') {
 				driver = 'org.postgresql.Driver'
 
-				schema('public') {
+				schema('${resolvedSchemaName}') {
 					flyway {
 						locations = 'classpath:db/migration'${flywaySchemaLine}
 					}

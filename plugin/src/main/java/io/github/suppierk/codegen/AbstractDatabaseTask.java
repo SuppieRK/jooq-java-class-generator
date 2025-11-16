@@ -192,6 +192,7 @@ abstract class AbstractDatabaseTask extends DefaultTask {
         normalizeSchema(resolveString(FlywayConfig::getDefaultSchema));
     final String flywaySchemaFromList = determineFlywaySchemaFromList();
     final String jooqInputSchema = normalizeSchema(fallbackSchema);
+    final String dslSchemaName = normalizeSchema(schemaName);
 
     final String preferredFlywaySchema =
         flywayDefaultSchema != null ? flywayDefaultSchema : flywaySchemaFromList;
@@ -211,6 +212,10 @@ abstract class AbstractDatabaseTask extends DefaultTask {
 
     if (jooqInputSchema != null) {
       return jooqInputSchema;
+    }
+
+    if (dslSchemaName != null) {
+      return dslSchemaName;
     }
 
     throw new IllegalStateException(

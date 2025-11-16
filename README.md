@@ -49,7 +49,7 @@ classes in a single Gradle task.
 
 ```groovy
 plugins {
-    id 'io.github.suppierk.jooq-java-class-generator' version '3.0.0'
+    id 'io.github.suppierk.jooq-java-class-generator' version '3.0.1'
 }
 ```
 
@@ -61,7 +61,7 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath 'io.github.suppierk:plugin:3.0.0'
+        classpath 'io.github.suppierk:plugin:3.0.1'
     }
 }
 

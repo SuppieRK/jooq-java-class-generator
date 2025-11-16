@@ -64,6 +64,14 @@ class GeneratorTaskTest {
   }
 
   @Test
+  void resolveSchemaFallsBackToDslSchemaNameWhenFlywayAndJooqUnset() {
+    final StubDatabaseTask task = createStubTask();
+    task.applyDslOverrides("tempDb", "analytics", null);
+
+    assertEquals("analytics", task.resolveSchemaForTests(null));
+  }
+
+  @Test
   void resolveSchemaIgnoresCaseDifferences() {
     final FlywayConfig overrides = new FlywayConfig();
     overrides.setDefaultSchema("public");
