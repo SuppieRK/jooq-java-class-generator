@@ -63,10 +63,10 @@ dependencies {
 	// Implementation dependencies
 
 	// https://mvnrepository.com/artifact/org.testcontainers/postgresql
-	implementation group: 'org.testcontainers', name: 'postgresql', version: '1.21.3'
+	implementation group: 'org.testcontainers', name: 'postgresql', version: '1.21.4'
 
 	// https://mvnrepository.com/artifact/org.testcontainers/mysql
-	implementation group: 'org.testcontainers', name: 'mysql', version: '1.21.3'
+	implementation group: 'org.testcontainers', name: 'mysql', version: '1.21.4'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-core
 	implementation group: 'org.flywaydb', name: 'flyway-core', version: '11.19.1'
