@@ -8,11 +8,11 @@ repositories {
 
 dependencies {
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.9'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.10'
 
 	// jooqGenerator scope comes from jOOQ code generator plugin
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	jooqGenerator group: 'org.postgresql', name: 'postgresql', version: '42.7.9'
+	jooqGenerator group: 'org.postgresql', name: 'postgresql', version: '42.7.10'
 }
 
 // (Almost) standard jOOQ code generator plugin configuration
