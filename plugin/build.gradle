@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'io.github.suppierk'
-version = '3.0.1'
+version = '3.1.0'
 
 def functionalTest = sourceSets.create('functionalTest')
 
@@ -56,26 +56,27 @@ dependencies {
 	// Exposed plugin dependencies
 
 	// https://plugins.gradle.org/plugin/nu.studer.jooq
-	api group: 'nu.studer', name: 'gradle-jooq-plugin', version: '10.1.1'
+	api 'nu.studer:gradle-jooq-plugin:10.1.1'
 
 
 	// ====================
 	// Implementation dependencies
+	// Must be aligned with latest Spring Boot dependency version due to potential friction.
+	// Check with https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies
 
-	// https://mvnrepository.com/artifact/org.testcontainers/postgresql
-	implementation group: 'org.testcontainers', name: 'postgresql', version: '1.21.4'
-
-	// https://mvnrepository.com/artifact/org.testcontainers/mysql
-	implementation group: 'org.testcontainers', name: 'mysql', version: '1.21.4'
+	// https://mvnrepository.com/artifact/org.testcontainers/testcontainers-bom
+	implementation platform('org.testcontainers:testcontainers-bom:2.0.5')
+	implementation 'org.testcontainers:testcontainers-postgresql'
+	implementation 'org.testcontainers:testcontainers-mysql'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-core
-	implementation group: 'org.flywaydb', name: 'flyway-core', version: '11.20.3'
+	implementation 'org.flywaydb:flyway-core:11.14.1'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
-	implementation group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '11.20.3'
+	implementation 'org.flywaydb:flyway-database-postgresql:11.14.1'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql
-	implementation group: 'org.flywaydb', name: 'flyway-mysql', version: '11.20.3'
+	implementation 'org.flywaydb:flyway-mysql:11.14.1'
 
 	// ====================
 	// Test dependencies
@@ -83,22 +84,22 @@ dependencies {
 	testImplementation gradleTestKit()
 
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '6.0.3'
+	testImplementation 'org.junit.jupiter:junit-jupiter:6.0.3'
 
 	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-	testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '6.0.3'
+	testImplementation 'org.junit.platform:junit-platform-launcher:6.0.3'
 
 
 	// ====================
 	// Functional test dependencies
 
 	// https://mvnrepository.com/artifact/org.spockframework/spock-core
-	functionalTestImplementation(group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-3.0') {
+	functionalTestImplementation('org.spockframework:spock-core:2.3-groovy-3.0') {
 		exclude group: 'org.codehaus.groovy'
 	}
 
 	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-	functionalTestRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-launcher', version: '6.0.3'
+	functionalTestRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.3'
 }
 
 tasks.withType(Test).configureEach {
