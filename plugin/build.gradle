@@ -70,13 +70,13 @@ dependencies {
 	implementation 'org.testcontainers:testcontainers-mysql'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-core
-	implementation 'org.flywaydb:flyway-core:11.14.1'
+	implementation 'org.flywaydb:flyway-core:11.20.3'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
-	implementation 'org.flywaydb:flyway-database-postgresql:11.14.1'
+	implementation 'org.flywaydb:flyway-database-postgresql:11.20.3'
 
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql
-	implementation 'org.flywaydb:flyway-mysql:11.14.1'
+	implementation 'org.flywaydb:flyway-mysql:11.20.3'
 
 	// ====================
 	// Test dependencies
