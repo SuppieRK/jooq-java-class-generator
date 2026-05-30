@@ -84,7 +84,7 @@ dependencies {
 	testImplementation gradleTestKit()
 
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
-	testImplementation 'org.junit.jupiter:junit-jupiter:6.0.3'
+	testImplementation 'org.junit.jupiter:junit-jupiter:6.1.0'
 
 	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
 	testImplementation 'org.junit.platform:junit-platform-launcher:6.1.0'
