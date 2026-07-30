@@ -1310,12 +1310,12 @@ tasks.withType(nu.studer.gradle.jooq.JooqGenerate).configureEach { task ->
 		}
 
 		where:
-		scenarioDescription                | includeFlywaySchema | includeJooqSchema | flywaySchemaValue | jooqSchemaValue | dslSchemaName || expectSuccess | expectedMessage
-		'DSL schema name fallback'         | false               | false             | null              | null            | 'analytics'   || true          | null
-		'Flyway default schema'            | false               | true              | null              | 'public'        | 'public'      || true          | null
-		'jOOQ input schema'                | true                | false             | 'public'          | null            | 'public'      || true          | null
-		'Mismatched schemas'               | true                | true              | 'audit'           | 'public'        | 'public'      || false         | "Flyway default schema 'audit' does not match jOOQ input schema 'public'"
-		'Missing schema declarations all'  | false               | false             | null              | null            | '  '          || false         | "Database schema must be declared via Flyway 'defaultSchema' or jOOQ 'inputSchema'"
+		scenarioDescription | includeFlywaySchema | includeJooqSchema | flywaySchemaValue | jooqSchemaValue | dslSchemaName || expectSuccess | expectedMessage
+		'DSL schema name fallback' | false | false | null | null | 'analytics' || true | null
+		'Flyway default schema' | false | true | null | 'public' | 'public' || true | null
+		'jOOQ input schema' | true | false | 'public' | null | 'public' || true | null
+		'Mismatched schemas' | true | true | 'audit' | 'public' | 'public' || false | "Flyway default schema 'audit' does not match jOOQ input schema 'public'"
+		'Missing schema declarations all' | false | false | null | null | '  ' || false | "Database schema must be declared via Flyway 'defaultSchema' or jOOQ 'inputSchema'"
 	}
 
 	def "dsl fails when driver is not yet supported"() {
