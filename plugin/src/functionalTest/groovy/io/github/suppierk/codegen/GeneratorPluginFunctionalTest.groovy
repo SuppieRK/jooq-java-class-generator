@@ -885,7 +885,7 @@ tasks.withType(nu.studer.gradle.jooq.JooqGenerate).configureEach { task ->
 					singleSchemaBuildScript(
 					'',
 					'''\n\t\t\tcontainer {\n\t\t\t\timage = 'postgres:16-alpine'\n\t\t\t}\n'''
-					)
+			)
 		}
 
 		when:
