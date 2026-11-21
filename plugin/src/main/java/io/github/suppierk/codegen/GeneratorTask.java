@@ -485,13 +485,12 @@ public class GeneratorTask extends AbstractDatabaseTask {
     try (ZipFile zipFile = new ZipFile(archive)) {
       final String directoryPrefix = jarEntryPath.endsWith("/") ? jarEntryPath : jarEntryPath + "/";
       return zipFile.stream()
-          .anyMatch(
-              entry -> {
-                final String name = entry.getName();
-                return name.equals(jarEntryPath)
-                    || name.equals(directoryPrefix)
-                    || name.startsWith(directoryPrefix);
-              });
+          .anyMatch(entry -> {
+            final String name = entry.getName();
+            return name.equals(jarEntryPath)
+                || name.equals(directoryPrefix)
+                || name.startsWith(directoryPrefix);
+          });
     } catch (Exception e) {
       getLogger()
           .warn(
@@ -707,13 +706,12 @@ public class GeneratorTask extends AbstractDatabaseTask {
   /** Serialises the fingerprint snapshot into a stable delimiter-separated string. */
   private @Nonnull String serializeSnapshot(@Nonnull Map<String, Object> snapshot) {
     final StringBuilder builder = new StringBuilder();
-    snapshot.forEach(
-        (key, value) -> {
-          if (!builder.isEmpty()) {
-            builder.append('|');
-          }
-          builder.append(key).append('=').append(serializeValue(value));
-        });
+    snapshot.forEach((key, value) -> {
+      if (!builder.isEmpty()) {
+        builder.append('|');
+      }
+      builder.append(key).append('=').append(serializeValue(value));
+    });
     return builder.toString();
   }
 

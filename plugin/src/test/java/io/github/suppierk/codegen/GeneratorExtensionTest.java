@@ -51,24 +51,20 @@ class GeneratorExtensionTest {
 
   @Test
   void createBlocksPopulateDatabasesAndSchemas() {
-    extension.databases(
-        databases ->
-            databases.create(
-                "tempDatabase",
-                database -> {
-                  database.getDriver().set("org.postgresql.Driver");
-                  database.schemas(
-                      schemas ->
-                          schemas.create(
-                              "public",
-                              schema -> {
-                                schema.getFlyway().setDefaultSchema("public");
-                                schema
-                                    .getFlyway()
-                                    .setLocations(List.of("classpath:db/migration/public"));
-                                schema.jooqConfigurations("main");
-                              }));
-                }));
+    extension.databases(databases ->
+        databases.create(
+            "tempDatabase",
+            database -> {
+              database.getDriver().set("org.postgresql.Driver");
+              database.schemas(schemas ->
+                  schemas.create(
+                      "public",
+                      schema -> {
+                        schema.getFlyway().setDefaultSchema("public");
+                        schema.getFlyway().setLocations(List.of("classpath:db/migration/public"));
+                        schema.jooqConfigurations("main");
+                      }));
+            }));
 
     final DatabaseExtension database = extension.getDatabases().getByName("tempDatabase");
     assertEquals("tempDatabase", database.getName());
