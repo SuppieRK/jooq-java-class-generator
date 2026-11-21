@@ -142,12 +142,11 @@ public class FlywayConfig {
       return null;
     }
     final Map<String, String> copy = new LinkedHashMap<>();
-    values.forEach(
-        (key, val) -> {
-          if (key != null && val != null) {
-            copy.put(key, val);
-          }
-        });
+    values.forEach((key, val) -> {
+      if (key != null && val != null) {
+        copy.put(key, val);
+      }
+    });
     return copy;
   }
 

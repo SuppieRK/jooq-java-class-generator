@@ -187,44 +187,40 @@ public class GeneratorPlugin implements Plugin<Project> {
 
     codegenExtension
         .getDatabases()
-        .configureEach(
-            databaseExtension -> {
-              final var databaseName = databaseExtension.getName();
+        .configureEach(databaseExtension -> {
+          final var databaseName = databaseExtension.getName();
 
-              databaseExtension
-                  .getSchemas()
-                  .configureEach(
-                      schemaExtension -> {
-                        schemaDatabaseNames.put(schemaExtension, databaseName);
-                        final Set<String> trackedConfigs =
-                            schemaConfigAssignments.computeIfAbsent(
-                                schemaExtension, ignored -> new LinkedHashSet<>());
+          databaseExtension
+              .getSchemas()
+              .configureEach(schemaExtension -> {
+                schemaDatabaseNames.put(schemaExtension, databaseName);
+                final Set<String> trackedConfigs =
+                    schemaConfigAssignments.computeIfAbsent(
+                        schemaExtension, ignored -> new LinkedHashSet<>());
 
-                        schemaExtension.whenJooqConfigurationsUpdated(
-                            configurationNames ->
-                                handleSchemaConfigurationUpdate(
-                                    schemaExtension,
-                                    databaseExtension,
-                                    databaseName,
-                                    configurationNames,
-                                    trackedConfigs,
-                                    schemaContextsByConfig,
-                                    schemaConfigAssignments,
-                                    registeredConfigurations,
-                                    generatorTasksByConfig,
-                                    flywayTasksByConfig,
-                                    attemptRegistration));
-                      });
-            });
+                schemaExtension.whenJooqConfigurationsUpdated(configurationNames ->
+                    handleSchemaConfigurationUpdate(
+                        schemaExtension,
+                        databaseExtension,
+                        databaseName,
+                        configurationNames,
+                        trackedConfigs,
+                        schemaContextsByConfig,
+                        schemaConfigAssignments,
+                        registeredConfigurations,
+                        generatorTasksByConfig,
+                        flywayTasksByConfig,
+                        attemptRegistration));
+              });
+        });
 
     jooqExtension
         .getConfigurations()
-        .configureEach(
-            jooqConfig -> {
-              final String configName = GeneratorTask.getJooqConfigName(jooqConfig);
-              jooqConfigsByName.put(configName, jooqConfig);
-              attemptRegistration.accept(configName);
-            });
+        .configureEach(jooqConfig -> {
+          final String configName = GeneratorTask.getJooqConfigName(jooqConfig);
+          jooqConfigsByName.put(configName, jooqConfig);
+          attemptRegistration.accept(configName);
+        });
   }
 
   /**
@@ -250,60 +246,56 @@ public class GeneratorPlugin implements Plugin<Project> {
               task.setGroup("codegen");
               task.setDescription(
                   "Validates that the jooqCodegen DSL references existing jOOQ configurations.");
-              task.onlyIf(
-                  t -> {
-                    if (schemaConfigAssignments.isEmpty()) {
-                      return true;
-                    }
-                    if (registeredConfigurations.isEmpty()) {
-                      return true;
-                    }
-                    final boolean hasSchemaWarnings =
-                        schemaConfigAssignments.values().stream().anyMatch(Set::isEmpty);
-                    if (hasSchemaWarnings) {
-                      return true;
-                    }
-                    final var unresolved = new LinkedHashSet<>(schemaContextsByConfig.keySet());
-                    unresolved.removeAll(jooqConfigsByName.keySet());
-                    return !unresolved.isEmpty();
-                  });
-              task.doLast(
-                  unused -> {
-                    if (schemaConfigAssignments.isEmpty()) {
-                      throw new IllegalStateException(
-                          "The jooqCodegen DSL must declare at least one database. Configure the extension before applying the plugin tasks.");
-                    }
+              task.onlyIf(t -> {
+                if (schemaConfigAssignments.isEmpty()) {
+                  return true;
+                }
+                if (registeredConfigurations.isEmpty()) {
+                  return true;
+                }
+                final boolean hasSchemaWarnings =
+                    schemaConfigAssignments.values().stream().anyMatch(Set::isEmpty);
+                if (hasSchemaWarnings) {
+                  return true;
+                }
+                final var unresolved = new LinkedHashSet<>(schemaContextsByConfig.keySet());
+                unresolved.removeAll(jooqConfigsByName.keySet());
+                return !unresolved.isEmpty();
+              });
+              task.doLast(unused -> {
+                if (schemaConfigAssignments.isEmpty()) {
+                  throw new IllegalStateException(
+                      "The jooqCodegen DSL must declare at least one database. Configure the extension before applying the plugin tasks.");
+                }
 
-                    schemaConfigAssignments.forEach(
-                        (schema, configs) -> {
-                          if (!configs.isEmpty()) {
-                            return;
-                          }
-                          final String databaseName =
-                              schemaDatabaseNames.getOrDefault(schema, "<unknown>");
-                          throw new IllegalStateException(
-                              "Schema '"
-                                  + schema.getName()
-                                  + "' in temporary database '"
-                                  + databaseName
-                                  + "' does not reference any jOOQ configurations.");
-                        });
+                schemaConfigAssignments.forEach((schema, configs) -> {
+                  if (!configs.isEmpty()) {
+                    return;
+                  }
+                  final String databaseName = schemaDatabaseNames.getOrDefault(schema, "<unknown>");
+                  throw new IllegalStateException(
+                      "Schema '"
+                          + schema.getName()
+                          + "' in temporary database '"
+                          + databaseName
+                          + "' does not reference any jOOQ configurations.");
+                });
 
-                    final var unresolved = new LinkedHashSet<>(schemaContextsByConfig.keySet());
-                    unresolved.removeAll(jooqConfigsByName.keySet());
+                final var unresolved = new LinkedHashSet<>(schemaContextsByConfig.keySet());
+                unresolved.removeAll(jooqConfigsByName.keySet());
 
-                    if (!unresolved.isEmpty()) {
-                      final String missing = unresolved.getFirst();
-                      final SchemaContext context = schemaContextsByConfig.get(missing);
-                      final String message = getMissingSchemaContextMessage(context, missing);
-                      throw new IllegalStateException(message);
-                    }
+                if (!unresolved.isEmpty()) {
+                  final String missing = unresolved.getFirst();
+                  final SchemaContext context = schemaContextsByConfig.get(missing);
+                  final String message = getMissingSchemaContextMessage(context, missing);
+                  throw new IllegalStateException(message);
+                }
 
-                    if (registeredConfigurations.isEmpty()) {
-                      throw new IllegalStateException(
-                          "No jOOQ configurations matched the jooqCodegen DSL entries. Ensure each schema references an existing jOOQ configuration and declares a driver.");
-                    }
-                  });
+                if (registeredConfigurations.isEmpty()) {
+                  throw new IllegalStateException(
+                      "No jOOQ configurations matched the jooqCodegen DSL entries. Ensure each schema references an existing jOOQ configuration and declares a driver.");
+                }
+              });
             });
   }
 
@@ -422,16 +414,15 @@ public class GeneratorPlugin implements Plugin<Project> {
                 jooqConfig,
                 jooqGenerateTaskProvider);
 
-    generateDatabaseClassesTask.configure(
-        task -> {
-          task.dependsOn(validationTask);
-          getTaskByNameSafely(project, "processResources").ifPresent(task::dependsOn);
-          task.applyDslOverrides(
-              schemaContext.databaseName(),
-              schemaContext.schemaName(),
-              schemaContext.driverClassName());
-          task.configureCaching();
-        });
+    generateDatabaseClassesTask.configure(task -> {
+      task.dependsOn(validationTask);
+      getTaskByNameSafely(project, "processResources").ifPresent(task::dependsOn);
+      task.applyDslOverrides(
+          schemaContext.databaseName(),
+          schemaContext.schemaName(),
+          schemaContext.driverClassName());
+      task.configureCaching();
+    });
 
     final var flywayMigrateTask =
         project
@@ -443,16 +434,14 @@ public class GeneratorPlugin implements Plugin<Project> {
                 schemaContext.flywayOverrides(),
                 jooqConfig);
 
-    flywayMigrateTask.configure(
-        task -> {
-          task.dependsOn(validationTask);
-          task.setDescription(
-              "Runs Flyway migrations against the temporary database used by jOOQ.");
-          task.applyDslOverrides(
-              schemaContext.databaseName(),
-              schemaContext.schemaName(),
-              schemaContext.driverClassName());
-        });
+    flywayMigrateTask.configure(task -> {
+      task.dependsOn(validationTask);
+      task.setDescription("Runs Flyway migrations against the temporary database used by jOOQ.");
+      task.applyDslOverrides(
+          schemaContext.databaseName(),
+          schemaContext.schemaName(),
+          schemaContext.driverClassName());
+    });
 
     aggregateTask.configure(task -> task.dependsOn(generateDatabaseClassesTask));
 
